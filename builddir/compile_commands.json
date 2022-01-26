@@ -1,8 +1,0 @@
-[
-  {
-    "directory": "/home/vega/Coding/bunnymark-c/builddir",
-    "command": "cc -Ibunnymark@exe -I. -I.. -I/usr/include/SDL2 -fdiagnostics-color=always -pipe -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -g -D_REENTRANT -MD -MQ 'bunnymark@exe/main.c.o' -MF 'bunnymark@exe/main.c.o.d' -o 'bunnymark@exe/main.c.o' -c ../main.c",
-    "file": "../main.c",
-    "output": "bunnymark@exe/main.c.o"
-  }
-]

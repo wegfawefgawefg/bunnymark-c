@@ -55,14 +55,14 @@ int main(int argc, char *argv[])
     SDL_Event event;
 
     // Load font
-    TTF_Font *font = TTF_OpenFont("../assets/FreeSans.ttf", 24);
+    TTF_Font *font = TTF_OpenFont("./assets/FreeSans.ttf", 24);
     if (font == NULL) {
         printf("Failed to load font: %s\n", TTF_GetError());
         return 1;
     }
 
     // load bunny
-    SDL_Texture *bunny_texture = IMG_LoadTexture(renderer, "../assets/wabbit_alpha.png");
+    SDL_Texture *bunny_texture = IMG_LoadTexture(renderer, "./assets/wabbit_alpha.png");
     int width, height;
     SDL_QueryTexture(bunny_texture, NULL, NULL, &width, &height);
     const struct dimensions bunny_shape = {width, height};
@@ -109,6 +109,8 @@ int main(int argc, char *argv[])
             bunny.y += bunny.vy;
             // apply gravity
             bunny.vy += 1;
+
+            // bounce off walls
             if (bunny.x < 0) {
                 bunny.x = 0;
                 bunny.vx = -bunny.vx;
@@ -117,13 +119,11 @@ int main(int argc, char *argv[])
                 bunny.x = SCREEN_WIDTH - bunny_shape.width;
                 bunny.vx = -bunny.vx;
             }
-            if (bunny.y < 0) {
-                bunny.y = 0;
-                bunny.vy = -bunny.vy;
-            }
             if (bunny.y > SCREEN_HEIGHT - bunny_shape.height) {
                 bunny.y = SCREEN_HEIGHT - bunny_shape.height;
                 bunny.vy = -bunny.vy;
+                // friction
+                bunny.vy *= 0.9;
             }
             bunnies[i] = bunny;
             const SDL_Rect bunny_rect = {
